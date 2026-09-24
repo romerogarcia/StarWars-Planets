@@ -1,0 +1,129 @@
+<div class="planets">
+  <header class="planets__header">
+    <h1 class="planets__title">Star Wars Planets</h1>
+    <div class="planets__user">
+      <span>
+        May the Force be with you, <strong>{{ auth.currentUser()?.firstName }}</strong>
+      </span>
+      <button type="button" class="planets__logout" (click)="logout()">Log out</button>
+    </div>
+  </header>
+
+  <main class="planets__main">
+    <div class="planets__search" role="search">
+      <label class="visually-hidden" for="planet-search">Search planets by name</label>
+      <input
+        id="planet-search"
+        type="text"
+        placeholder="Search a planet..."
+        autocomplete="off"
+        [value]="search()"
+        (input)="onSearch($any($event.target).value)"
+      />
+    </div>
+
+    @if (data.planets.isLoading()) {
+      <p class="planets__status" role="status">Loading planets from a galaxy far, far away...</p>
+    } @else if (data.planets.error()) {
+      <div class="planets__status" role="alert">
+        <p>We couldn't load the planets. Please try again.</p>
+        <button type="button" class="planets__retry" (click)="data.reload()">Retry</button>
+      </div>
+    } @else {
+      <section id="planets-results" class="planets__results" aria-labelledby="results-label">
+        <p id="results-label" class="planets__status" aria-live="polite">
+          @if (filtered().length) {
+            {{ rangeLabel() }}
+          } @else {
+            No planets match "{{ search() }}".
+          }
+        </p>
+
+        <div class="planets__container">
+          @for (planet of visible(); track planet.url) {
+            <article class="planets__container__list">
+              <h2 class="planets__container__list__element uppercase">{{ planet.name }}</h2>
+              <p class="planets__container__list__element">
+                <span class="planets__container__list__label">Population:</span>
+                @if (isNumber(planet.population)) {
+                  {{ +planet.population | number }}
+                } @else {
+                  {{ planet.population }}
+                }
+              </p>
+              <p class="planets__container__list__element">
+                <span class="planets__container__list__label">Diameter:</span>
+                @if (isNumber(planet.diameter) && planet.diameter !== '0') {
+                  {{ +planet.diameter | number }} km
+                } @else {
+                  unknown
+                }
+              </p>
+              <p class="planets__container__list__element">
+                <span class="planets__container__list__label">Terrain:</span> {{ planet.terrain }}
+              </p>
+              <p class="planets__container__list__element">
+                <span class="planets__container__list__label">Climate:</span> {{ planet.climate }}
+              </p>
+              <p class="planets__container__list__element">
+                <span class="planets__container__list__label">Films:</span>
+              </p>
+              <ul class="planets__container__list__films">
+                @for (title of films(planet); track title) {
+                  <li>{{ title }}</li>
+                } @empty {
+                  <li>Not seen in any film</li>
+                }
+              </ul>
+            </article>
+          }
+        </div>
+
+        @if (totalPages() > 1) {
+          <nav class="pagination" aria-label="Planets pages">
+            <button
+              type="button"
+              class="pagination__item pagination__arrow"
+              (click)="goTo(page() - 1)"
+              [disabled]="page() === 1"
+              aria-label="Previous page"
+            >
+              ‹ <span class="pagination__arrow-text">Prev</span>
+            </button>
+            <ol class="pagination__pages">
+              @for (item of pageItems(); track $index) {
+                <li>
+                  @if (item === '…') {
+                    <span class="pagination__gap" aria-hidden="true">…</span>
+                  } @else {
+                    <button
+                      type="button"
+                      class="pagination__item"
+                      [class.is-active]="item === page()"
+                      [attr.aria-current]="item === page() ? 'page' : null"
+                      [attr.aria-label]="'Page ' + item"
+                      (click)="goTo(item)"
+                    >
+                      {{ item }}
+                    </button>
+                  }
+                </li>
+              }
+            </ol>
+            <button
+              type="button"
+              class="pagination__item pagination__arrow"
+              (click)="goTo(page() + 1)"
+              [disabled]="page() === totalPages()"
+              aria-label="Next page"
+            >
+              <span class="pagination__arrow-text">Next</span> ›
+            </button>
+          </nav>
+        }
+      </section>
+    }
+  </main>
+
+  <img class="planets__yoda" src="images/yoda.png" alt="" width="506" height="476" />
+</div>

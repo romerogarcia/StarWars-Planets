@@ -1,0 +1,307 @@
+@use '../core/variables' as *;
+
+.planets {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: $color-page-bg;
+  color: $color-text-body;
+
+  &__header {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: to-rem(12 24);
+    padding: to-rem(16) clamp(#{to-rem(16)}, 4vw, #{to-rem(48)});
+    background-color: $color-dark-bg;
+    border-bottom: to-rem(3) solid $color-yellow;
+
+    @include until(tablet) {
+      flex-direction: column;
+      text-align: center;
+    }
+  }
+
+  &__title {
+    color: $color-yellow;
+    font-family: $font-title;
+    font-size: $font-size-title;
+    text-transform: uppercase;
+    line-height: 1.1;
+  }
+
+  &__user {
+    display: flex;
+    align-items: center;
+    gap: to-rem(16);
+    color: $color-white;
+
+    strong {
+      color: $color-yellow;
+    }
+  }
+
+  &__logout {
+    padding: to-rem(6 16);
+    border: 1px solid $color-yellow;
+    border-radius: to-rem(20);
+    background: transparent;
+    color: $color-yellow;
+    cursor: pointer;
+    transition:
+      background-color 0.2s,
+      color 0.2s;
+
+    &:hover {
+      background-color: $color-yellow;
+      color: $color-dark-bg;
+    }
+  }
+
+  &__main {
+    width: 100%;
+    max-width: to-rem(1100);
+    padding: to-rem(40 16 120);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  &__search {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+
+    input[type='text'] {
+      width: min(100%, #{to-rem(420)});
+      height: to-rem(44);
+      margin: 0;
+      padding: to-rem(0 16);
+      border: 1px solid $color-line;
+      border-radius: to-rem(10);
+      background-color: $color-page-bg;
+      color: $color-text-strong;
+      font-size: $font-size-md;
+      box-shadow: $shadow-soft;
+      transition:
+        border-color 0.2s,
+        box-shadow 0.2s;
+
+      &::placeholder {
+        color: $color-text-muted;
+      }
+
+      &:focus {
+        outline: none;
+        border-color: $color-dark-bg;
+        box-shadow: 0 0 0 to-rem(3) rgba(255, 255, 59, 0.55);
+      }
+    }
+  }
+
+  &__results {
+    width: 100%;
+    scroll-margin-top: to-rem(100);
+  }
+
+  &__status {
+    margin: to-rem(20);
+    text-align: center;
+    color: $color-text-muted;
+    font-size: $font-size-sm;
+  }
+
+  &__retry {
+    margin-top: to-rem(12);
+    padding: to-rem(8 20);
+    border: 1px solid $color-dark-bg;
+    border-radius: to-rem(20);
+    background-color: $color-dark-bg;
+    color: $color-yellow;
+    cursor: pointer;
+  }
+
+  &__container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, #{to-rem(260)}), 1fr));
+    justify-content: center;
+    gap: to-rem(24);
+
+    @include from(tablet) {
+      grid-template-columns: repeat(3, minmax(0, to-rem(300)));
+    }
+
+    &__list {
+      display: flex;
+      flex-direction: column;
+      gap: to-rem(10);
+      padding: to-rem(22 22 24);
+      border-radius: to-rem(14);
+      background-color: $color-card-bg;
+      border: 1px solid $color-card-border;
+      box-shadow: $shadow-soft;
+      transition:
+        transform 0.2s,
+        box-shadow 0.2s;
+
+      &:hover {
+        transform: translateY(to-rem(-2));
+        box-shadow: $shadow-float;
+      }
+
+      h2 {
+        margin-bottom: to-rem(6);
+        padding-bottom: to-rem(12);
+        border-bottom: to-rem(2) solid $color-gold;
+        color: $color-text-strong;
+        font-size: $font-size-lg;
+        font-weight: $font-weight-bold;
+        letter-spacing: 0.04em;
+      }
+
+      &__element {
+        color: $color-text-body;
+        font-size: $font-size-md;
+      }
+
+      &__label {
+        display: inline-block;
+        min-width: to-rem(92);
+        margin-right: to-rem(6);
+        color: $color-text-muted;
+        font-size: $font-size-xs;
+        font-weight: $font-weight-bold;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+      }
+
+      &__films {
+        display: flex;
+        flex-wrap: wrap;
+        gap: to-rem(6);
+        list-style: none;
+
+        li {
+          padding: to-rem(3 10);
+          border-radius: 999px;
+          background-color: $color-page-bg;
+          border: 1px solid $color-card-border;
+          color: $color-text-body;
+          font-size: to-rem(13);
+        }
+      }
+    }
+  }
+
+  &__yoda {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    z-index: 4;
+    width: clamp(#{to-rem(140)}, 14vw, #{to-rem(220)});
+    height: auto;
+    pointer-events: none; 
+
+    @include until(tablet) {
+      display: none;
+    }
+  }
+}
+
+
+.uppercase {
+  text-transform: uppercase;
+}
+
+
+.pagination {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 5;
+  width: max-content;
+  max-width: calc(100vw - #{to-rem(32)});
+  margin-bottom: to-rem(24);
+  padding: to-rem(8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: to-rem(6);
+  border-radius: 999px;
+  background-color: $color-page-bg;
+  border: 1px solid $color-card-border;
+  box-shadow: $shadow-float;
+
+  &__pages {
+    display: flex;
+    align-items: center;
+    gap: to-rem(6);
+    list-style: none;
+  }
+
+  &__item {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: to-rem(4);
+    min-width: to-rem(40);
+    height: to-rem(40);
+    padding: to-rem(0 12);
+    border-radius: 999px;
+    border: 1px solid transparent;
+    background-color: transparent;
+    color: $color-text-body;
+    font-size: $font-size-md;
+    cursor: pointer;
+    transition:
+      background-color 0.2s,
+      color 0.2s;
+
+    &:hover:not(:disabled):not(.is-active) {
+      background-color: $color-card-bg;
+      color: $color-text-strong;
+    }
+
+    &:focus-visible {
+      outline: to-rem(2) solid $color-dark-bg;
+      outline-offset: to-rem(2);
+    }
+
+    &.is-active {
+      background-color: $color-dark-bg;
+      color: $color-yellow;
+      font-weight: $font-weight-bold;
+      cursor: default;
+    }
+
+    &:disabled {
+      color: $color-line;
+      cursor: not-allowed;
+    }
+  }
+
+  &__gap {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: to-rem(24);
+    height: to-rem(40);
+    color: $color-text-muted;
+    font-size: $font-size-lg;
+    letter-spacing: 1px;
+  }
+
+  &__arrow-text {
+    @include until(mobile) {
+      display: none;
+    }
+  }
+}

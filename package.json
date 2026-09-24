@@ -1,56 +1,39 @@
 {
-  "name": "star-Wars-planets",
-  "homepage": "./",
-  "version": "0.1.0",
-  "private": true,
-  "dependencies": {
-    "@testing-library/jest-dom": "^5.16.4",
-    "@testing-library/react": "^13.1.1",
-    "@testing-library/user-event": "^13.5.0",
-    "axios": "^0.27.2",
-    "bootstrap": "^5.2.1",
-    "connect-ensure-login": "^0.1.1",
-    "firebase": "^9.9.4",
-    "node-sass": "^7.0.1",
-    "npm-auth": "^1.1.0",
-    "prop-types": "^15.8.1",
-    "query": "^0.2.0",
-    "react": "^18.0.0",
-    "react-bootstrap": "^2.5.0",
-    "react-bootstrap-spinner": "^1.0.0",
-    "react-dom": "^18.0.0",
-    "react-hook-form": "^7.35.0",
-    "react-query": "^3.39.2",
-    "react-redirect": "^1.0.0",
-    "react-resolve": "^1.0.3",
-    "react-router-dom": "^6.3.0",
-    "react-scripts": "5.0.1",
-    "swapi-node": "^0.7.0",
-    "sweetalert": "^2.1.2",
-    "web-vitals": "^2.1.4"
-  },
+  "name": "star-wars-planets",
+  "version": "2.0.0",
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "ng": "ng",
+    "start": "ng serve",
+    "build": "ng build",
+    "watch": "ng build --watch --configuration development",
+    "test": "ng test"
   },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
+  "private": true,
+  "packageManager": "npm@10.9.8",
+  "dependencies": {
+    "@angular/common": "^22.2.0",
+    "@angular/compiler": "^22.2.0",
+    "@angular/core": "^22.2.0",
+    "@angular/forms": "^22.2.0",
+    "@angular/platform-browser": "^22.2.0",
+    "@angular/router": "^22.2.0",
+    "rxjs": "~7.8.0",
+    "sweetalert": "^2.1.2",
+    "tslib": "^2.3.0"
   },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+  "devDependencies": {
+    "@angular/build": "^22.2.0",
+    "@angular/cli": "^22.2.0",
+    "@angular/compiler-cli": "^22.2.0",
+    "jsdom": "^30.0.0",
+    "prettier": "^3.8.1",
+    "typescript": "~6.0.2",
+    "vitest": "^5.0.0"
+  },
+  "description": "Search the planets of the Star Wars saga. Built with Angular.",
+  "author": "Noelia Romero",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/romerogarcia/StarWars-Planets.git"
   }
 }

@@ -1,0 +1,38 @@
+
+@use 'core/variables' as *;
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.error {
+  padding-right: to-rem(20);
+}
+
+.login__form__title {
+  font-size: 1.17em;
+}
+
+.main__section__form {
+  height: auto;
+  min-height: to-rem(470);
+  padding-bottom: to-rem(20);
+}
+
+.text_404 {
+  font-weight: $font-weight-light;
+}
+
+.text_home {
+  display: inline-block;
+  margin-top: to-rem(16);
+  font-family: $font-404;
+  font-size: 1.3em;
+  color: #363636;
+  text-decoration: underline;
+}

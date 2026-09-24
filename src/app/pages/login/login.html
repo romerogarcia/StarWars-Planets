@@ -1,0 +1,58 @@
+<main class="login">
+  <section class="sectionLogin">
+    <img class="sectionLogin__logo" src="images/logo.png" alt="Star Wars" />
+    <p class="sectionLogin__p">
+      On this website you can search for the different planets of the Star Wars saga through our
+      search engine.
+    </p>
+  </section>
+
+  <form class="login__form" [formGroup]="form" (ngSubmit)="submit()" novalidate>
+    <h1 class="login__form__title">SIGN IN</h1>
+
+    <div class="input-container">
+      <label class="visually-hidden" for="login-username">Username</label>
+      <input
+        id="login-username"
+        type="text"
+        formControlName="username"
+        placeholder="Username"
+        autocomplete="username"
+        [attr.aria-invalid]="error()?.field === 'username' || null"
+        aria-describedby="login-username-error"
+      />
+      <div id="login-username-error" class="error" aria-live="polite">
+        @if (form.controls.username.touched && form.controls.username.hasError('required')) {
+          Username is required
+        } @else if (error()?.field === 'username') {
+          {{ error()?.message }}
+        }
+      </div>
+    </div>
+
+    <div class="input-container">
+      <label class="visually-hidden" for="login-password">Password</label>
+      <input
+        id="login-password"
+        type="password"
+        formControlName="password"
+        placeholder="Password"
+        autocomplete="current-password"
+        [attr.aria-invalid]="error()?.field === 'password' || null"
+        aria-describedby="login-password-error"
+      />
+      <div id="login-password-error" class="error" aria-live="polite">
+        @if (form.controls.password.touched && form.controls.password.hasError('required')) {
+          Password is required
+        } @else if (error()?.field === 'password') {
+          {{ error()?.message }}
+        }
+      </div>
+    </div>
+
+    <div class="button-container">
+      <button class="button" type="submit" [disabled]="submitting()">Enter</button>
+    </div>
+    <a routerLink="/Registration" class="login__form__p">Register</a>
+  </form>
+</main>

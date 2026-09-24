@@ -1,32 +1,55 @@
-# Getting Started with my Project Star Wars Planets
+# Star Wars Planets
 
-This project consists of the development of a website that shows you the different planets and their characteristics from the Star Wars film saga.
+Web app to explore the planets of the Star Wars saga. Sign in (or create an account) and search the planets by name, see their population, diameter, terrain, climate and the films they appear in.
 
-To view them, we must log in with a login or register if we do not have an account.
+**Live demo:** https://romerogarcia.github.io/StarWars-Planets/
 
-## Available Scripts
+## Tech stack
 
-In the project directory, you can run:
+- [Angular 22](https://angular.dev): standalone components, signals, `httpResource`, the new control flow and lazy-loaded routes
+- Reactive Forms with validation
+- SCSS
+- Data from [SWAPI](https://swapi.info) (the Star Wars API)
+- Vitest for unit tests
 
-### `npm start`
+## Features
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- **Sign in** with username and password. Clear errors for unknown users and wrong passwords.
+- **Create your account**: validated form (username without spaces, password of at least 6 characters, first and last name). Usernames can't be repeated, and new users can sign in again later.
+- **Protected routes**: `/Planets` is only available when you are signed in; signed-in users skip the login and registration screens. Your session is kept when you reload the page, and you can log out.
+- **Planets**: all the planets sorted alphabetically, 6 per page, with instant search by name. Film titles are shown instead of API links.
+- Loading and error states (with a retry button) when the API is slow or down.
+- 404 page for unknown URLs.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Demo accounts: `Luke / Skywalker`, `Leia / Skywalker`, `Obi-Wan / Kenobi`.
 
-### `npm test`
+> This is a front-end demo with no backend: users are stored in the browser (localStorage) and passwords are saved as SHA-256 hashes, never in clear text. A real app must authenticate against a server.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Getting started
 
-### `npm run eject`
+Requirements: Node.js `^22.22.3`, `^24.15.0` or `>=26`.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+```bash
+npm install
+npm start      # http://localhost:4200
+npm test       # unit tests
+npm run build  # production build in docs/ (served by GitHub Pages)
+```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Project structure
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+```
+src/
+├── app/
+│   ├── core/        # auth service + guards, planets service, models
+│   ├── pages/       # login, registration, planets, not-found
+│   └── shared/      # success alert
+├── images/          # background images used from SCSS
+├── styles/          # SCSS partials (variables, one file per page)
+└── styles.scss
+public/images/       # images used in the templates
+```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## Deployment
+
+GitHub Pages serves the `docs/` folder of the `main` branch. After changing the code, run `npm run build` and commit the updated `docs/` folder.

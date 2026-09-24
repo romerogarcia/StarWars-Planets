@@ -1,0 +1,14 @@
+// Global styles (ported 1:1 from the original React project)
+@use 'styles/core/variables' as *;
+@use 'styles/layout/login';
+@use 'styles/layout/registration';
+@use 'styles/layout/planets';
+@use 'styles/layout/not-found';
+@use 'styles/components';
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: $font-body;
+}

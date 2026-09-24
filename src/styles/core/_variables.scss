@@ -1,0 +1,124 @@
+
+@use 'sass:math';
+@use 'sass:map';
+@use 'sass:list';
+@use 'sass:meta';
+
+$base-font-size: 16px;
+
+@function to-rem($values, $base: $base-font-size) {
+  @if meta.type-of($values) == 'list' {
+    $result: ();
+    @each $value in $values {
+      $result: list.append($result, to-rem($value, $base), $separator: list.separator($values));
+    }
+    @return $result;
+  }
+  @if meta.type-of($values) != 'number' or $values == 0 {
+    @return $values; 
+  }
+  @if math.is-unitless($values) {
+    $values: $values * 1px;
+  }
+  @if math.unit($values) != 'px' {
+    @return $values; 
+  }
+  @return math.div($values, $base) * 1rem;
+}
+
+$breakpoints: (
+  mobile: 390px,
+  tablet: 1024px,
+  desktop: 1444px,
+);
+
+$bp-mobile: map.get($breakpoints, mobile);
+$bp-tablet: map.get($breakpoints, tablet);
+$bp-desktop: map.get($breakpoints, desktop);
+
+
+@mixin from($breakpoint) {
+  @media (min-width: map.get($breakpoints, $breakpoint)) {
+    @content;
+  }
+}
+
+
+@mixin until($breakpoint) {
+  @media (max-width: map.get($breakpoints, $breakpoint) - 0.02px) {
+    @content;
+  }
+}
+
+
+@mixin between($from, $until) {
+  @media (min-width: map.get($breakpoints, $from)) and (max-width: map.get($breakpoints, $until) - 0.02px) {
+    @content;
+  }
+}
+
+// -----------------------------------------------------------------------------
+// Fonts
+// -----------------------------------------------------------------------------
+$font-body: 'Poppins', sans-serif;
+$font-title: 'Bungee Spice', cursive;
+$font-404: 'Comic Neue', cursive;
+$font-serif: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+
+$font-weight-light: 300;
+$font-weight-regular: 400;
+$font-weight-bold: 700;
+
+
+$font-size-xs: to-rem(12);
+$font-size-sm: to-rem(14);
+$font-size-md: to-rem(15);
+$font-size-base: to-rem(16);
+$font-size-lg: to-rem(18);
+$font-size-xl: to-rem(25);
+$font-size-title: clamp(#{to-rem(26)}, 5vw, #{to-rem(40)}); // 26px → 40px
+
+// -----------------------------------------------------------------------------
+// Colors
+// -----------------------------------------------------------------------------
+
+$color-yellow: rgb(255, 255, 59);
+$color-gold: #f0c419;
+$color-black: #191919;
+$color-white: #ffffff;
+
+
+$color-dark-bg: $color-black;
+$color-dark-surface: #383838;
+$color-dark-text-muted: #b3b3b3; 
+$color-error: #ff8a8a; 
+$color-teal: #066163;
+$color-orange: #e14d2a;
+
+
+$color-page-bg: $color-white;
+$color-card-bg: #f4f5f7;
+$color-card-border: #e4e7ec;
+$color-line: #d6dae1;
+$color-text-strong: #1c1f24;
+$color-text-body: #3d4451;
+$color-text-muted: #565d6b;
+
+// Shadows
+$shadow-soft:
+  0 1px 2px rgba(16, 24, 40, 0.06),
+  0 4px 12px rgba(16, 24, 40, 0.06);
+$shadow-float: 0 8px 24px rgba(16, 24, 40, 0.14);
+
+$background: $color-dark-bg;
+$border: rgba(0, 0, 0, 0.2);
+$border--bottom: rgba(0, 0, 0, 0.144);
+$background--list: rgba(54, 54, 54, 0.555);
+$background--gray: $color-dark-surface;
+$detail--p: $color-dark-text-muted;
+$detail--yellow: $color-yellow;
+$button--next: $color-orange;
+$detail--white: $color-white;
+$button--color: $color-teal;
+$error: $color-error;
+$detail--element: black;

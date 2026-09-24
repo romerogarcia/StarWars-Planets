@@ -1,0 +1,96 @@
+<main class="main">
+  <section class="main__section">
+    <form class="main__section__form" [formGroup]="form" (ngSubmit)="submit()" novalidate>
+      <h1 class="main__section__form__title">CREATE YOUR ACCOUNT</h1>
+
+      <div class="input-container">
+        <label class="visually-hidden" for="reg-username">Username</label>
+        <input
+          id="reg-username"
+          type="text"
+          formControlName="username"
+          placeholder="Username"
+          autocomplete="username"
+          [attr.aria-invalid]="showError('username') || !!usernameTaken() || null"
+          aria-describedby="reg-username-error"
+        />
+        <div id="reg-username-error" class="error" aria-live="polite">
+          @if (usernameTaken()) {
+            {{ usernameTaken() }}
+          } @else if (showError('username')) {
+            @if (form.controls.username.hasError('required')) {
+              Username is required
+            } @else if (form.controls.username.hasError('pattern')) {
+              Username can't contain spaces
+            } @else {
+              Username must have at least 3 characters
+            }
+          }
+        </div>
+      </div>
+
+      <div class="input-container">
+        <label class="visually-hidden" for="reg-password">Password</label>
+        <input
+          id="reg-password"
+          type="password"
+          formControlName="password"
+          placeholder="Password"
+          autocomplete="new-password"
+          [attr.aria-invalid]="showError('password') || null"
+          aria-describedby="reg-password-error"
+        />
+        <div id="reg-password-error" class="error" aria-live="polite">
+          @if (showError('password')) {
+            Password must have at least {{ minPassword }} characters
+          }
+        </div>
+      </div>
+
+      <div class="input-container">
+        <label class="visually-hidden" for="reg-first-name">First name</label>
+        <input
+          id="reg-first-name"
+          type="text"
+          formControlName="firstName"
+          placeholder="First Name"
+          autocomplete="given-name"
+          [attr.aria-invalid]="showError('firstName') || null"
+          aria-describedby="reg-first-name-error"
+        />
+        <div id="reg-first-name-error" class="error" aria-live="polite">
+          @if (showError('firstName')) {
+            First name is required
+          }
+        </div>
+      </div>
+
+      <div class="input-container">
+        <label class="visually-hidden" for="reg-last-name">Last name</label>
+        <input
+          id="reg-last-name"
+          type="text"
+          formControlName="lastName"
+          placeholder="Last Name"
+          autocomplete="family-name"
+          [attr.aria-invalid]="showError('lastName') || null"
+          aria-describedby="reg-last-name-error"
+        />
+        <div id="reg-last-name-error" class="error" aria-live="polite">
+          @if (showError('lastName')) {
+            Last name is required
+          }
+        </div>
+      </div>
+
+      <div class="button-container">
+        <button class="button" type="submit" [disabled]="submitting()">Register</button>
+      </div>
+      <a routerLink="/" class="main__section__form__p">
+        Already have an account? <span class="main__section__form__span">Back to Login</span>
+      </a>
+    </form>
+  </section>
+
+  <img class="main__imageYoda" src="images/yoda.png" alt="" />
+</main>
